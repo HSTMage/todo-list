@@ -1,0 +1,12 @@
+{% if latest_list %}
+    <ul>
+    {% for todo in latest_list %}
+        <li><a href="{% url 'todos:detail' todo.id %}">{{ todo.todo }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Zatial neboli vytvorene ziadne Todo :)</p>
+{% endif %}
+
+<br /><br />
+<a href="/admin/">Administrácia</a>
