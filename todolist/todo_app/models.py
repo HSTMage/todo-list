@@ -20,3 +20,7 @@ class Todo(models.Model):
         
     def is_deleted(self):
         return self.deleted == '1'
+      
+    def get_author_name(self):
+        _name = '%s' % (self.author.username)
+        return _name.strip()
