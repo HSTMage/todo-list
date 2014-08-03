@@ -8,8 +8,6 @@ admin.autodiscover()
 
 router = routers.DefaultRouter()
 #router.register(r'todo', views.TodoListView)
-#router.register(r'todo', views.TodoViewSet)
-#router.register(r'tags', views.TagsViewSet)
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),

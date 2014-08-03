@@ -24,3 +24,5 @@ class Todo(models.Model):
     def get_author_name(self):
         _name = '%s' % (self.author.username)
         return _name.strip()
+        
+    get_author_name.short_description = 'Author'
