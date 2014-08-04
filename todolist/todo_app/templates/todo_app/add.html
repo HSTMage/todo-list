@@ -1,0 +1,10 @@
+<h1>Pridanie noveho TODO</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'todo:add' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="todo_text" id="todo_text" />
+    
+    <input type="submit" value="Pridat" />
+</form>

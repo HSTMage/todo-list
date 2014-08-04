@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
     #url(r'^$', views.index, name='index'),
-    url(r'^', include('todo_app.urls'), namespace="todos"),
-    url(r'^todo/', include('todo_app.urls'), namespace="todos"),
+    #url(r'^$', include('todo_app.urls', namespace="todo")),
+    url(r'^todo/', include('todo_app.urls', namespace="todo")),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )

@@ -14,4 +14,7 @@ def index(request):
     
 def detail(request, todo_id):
     todo = get_object_or_404(Todo, pk=todo_id)
-    return render(request, 'todo_app/detail.html', {'todo': todo})
+    return render(request, 'todo_app/detail.html', {'todo': todo, 'tags': todo.tags.all()})
+    
+def add(request):
+    return render(request, 'todo_app/add.html', {})

@@ -4,3 +4,9 @@
     <span>{{ todo.get_author_name }}</span><br />
     <span>{{ todo.date_cre }}</span><br />
 </div>
+
+<ul>
+{% for tag in tags %}
+    <li>{{ tag.tag }}</li>
+{% endfor %}
+</ul>
