@@ -13,8 +13,14 @@ router = routers.DefaultRouter()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
-    #url(r'^$', views.index, name='index'),
-    #url(r'^$', include('todo_app.urls', namespace="todo")),
+    url(r'^$', views.index, name='index'),
+    url(r'^doLogin/$', views.doLogin, name='doLogin'),
+    url(r'^doLogout/$', views.doLogout, name='doLogout'),
+    
+    url(r'^register/$', views.register, name='register'),
+    url(r'^doRegister/$', views.doRegister, name='doRegister'),
+    
     url(r'^todo/', include('todo_app.urls', namespace="todo")),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
+

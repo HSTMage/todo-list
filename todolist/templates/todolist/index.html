@@ -1,0 +1,35 @@
+{% extends "todolist/base.html" %}
+       
+{% block title %}Login{% endblock %}
+       
+{% block content %}
+    {% if is_on %}
+       
+       <h1>Prihlaseny {{ user.username }}</h1>
+       <a href="{% url 'doLogout' %}">Odhlásiť sa</a>
+       
+    {% else %}
+    
+        <form action="{% url 'doLogin' %}" method="post">
+          {% csrf_token %}
+          <div class="login_form">
+              <h1>Prihláste sa</h1>
+              <div class="login_row">
+                  <label for="login_name">Login:</label>
+                  <input type="text" name="login_name" id="login_name" />
+              </div>
+              
+              <div class="login_row">
+                  <label for="login_pass">Password:</label>
+                  <input type="password" name="login_pass" id="login_pass" />
+              </div>
+              
+              <div class="login_row">
+                  <a href="{% url 'register' %}">Registracia</a>
+                  <input type="submit" name="login_send" id="login_send" value="Send" />
+              </div>
+          </div>
+      </form>
+    
+    {% endif %}
+{% endblock %}

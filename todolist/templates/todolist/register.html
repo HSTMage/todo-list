@@ -1,0 +1,31 @@
+{% extends "todolist/base.html" %}
+       
+{% block title %}Registracia{% endblock %}
+       
+{% block content %}
+    
+    <form action="{% url 'doRegister' %}" method="post">
+        {% csrf_token %}
+        <div class="login_form register">
+            <h1>Prihláste sa</h1>
+            <div class="login_row">
+                <label for="reg_name">Username:</label>
+                <input type="text" name="reg_name" id="reg_name" />
+            </div>
+            
+            <div class="login_row">
+                <label for="reg_pass">Password:</label>
+                <input type="password" name="reg_pass" id="reg_pass" />
+            </div>
+            
+            <div class="login_row">
+                <label for="reg_pass2">Password again:</label>
+                <input type="password" name="reg_pass2" id="reg_pass2" />
+            </div>
+            
+            <div class="login_row">
+                <input type="submit" name="login_send" id="login_send" value="Send" />
+            </div>
+        </div>
+    </form>
+{% endblock %}

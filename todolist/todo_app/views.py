@@ -21,7 +21,7 @@ def add(request):
     return render(request, 'todo_app/add.html', {})
 
 def save(request):
-    todo = Todo(todo=request.POST['todo_text'], date_cre=timezone.now(), author=User.objects.get(pk=1)) #zmenit aby to vkladalo prihlaseneho
+    todo = Todo(todo=request.POST['todo_text'], date_cre=timezone.now(), author=request.user) #zmenit aby to vkladalo prihlaseneho
     todo.save()
     
     latest_list = Todo.objects.order_by('-date_cre')[:10]
