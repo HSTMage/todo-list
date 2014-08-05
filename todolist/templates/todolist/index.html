@@ -6,6 +6,10 @@
     {% if is_on %}
        
        <h1>Prihlaseny {{ user.username }}</h1>
+       
+       <a href="{% url 'todo:index' %}">Todo List</a>
+       
+       <br /><br /><br />
        <a href="{% url 'doLogout' %}">Odhlásiť sa</a>
        
     {% else %}
