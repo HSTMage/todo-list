@@ -4,14 +4,19 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from activity_log.models import ActivityLog
+from django.utils import timezone
 
 def index(request):    
     user = request.user
     is_on = user.is_authenticated() 
-
-    context = { 'user' : user, 'is_on' : is_on}  
-    return render(request, 'todolist/index.html', context)
-    
+ 
+    if is_on:
+        return HttpResponseRedirect(reverse('todo:index', args=()))     
+    else:
+        context = { 'user' : user }  
+        return render(request, 'todolist/index.html', context)
+                                                                     
 def doLogin(request):
     username = request.POST['login_name']
     password = request.POST['login_pass']
@@ -19,8 +24,15 @@ def doLogin(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
+        
+        al = ActivityLog(action='uspesne prihlasenie',date=timezone.now(), author=user)
+        al.save()
     else:
-        err_message = 'invalid login'
+        err_message = 'nespravne prihlasenie'
+        #action = 'NEuspesne prihlasenie, username=%s' % (username)
+        #action = action.strip()
+        #al = ActivityLog(action=action,date=timezone.now(), None)
+        #al.save()
         
     return HttpResponseRedirect(reverse('index', args=()))  
     

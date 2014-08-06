@@ -1,16 +1,18 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
 from todo_app.models import Todo, Tags
+from activity_log.models import ActivityLog
 from django.contrib.auth.models import User
 from django.utils import timezone
     
 def index(request):
-    latest_list = Todo.objects.order_by('-date_cre')[:10]
+    actionLog_div = render(request, 'activity_log/index.html', {}) 
     
-    context = { 'latest_list': latest_list}
+    latest_list = Todo.objects.order_by('-date_cre')[:10]
+    context = { 'latest_list': latest_list, actionLog_div: actionLog_div}
     return render(request, 'todo_app/index.html', context)   
         
 def detail(request, todo_id):
@@ -21,10 +23,14 @@ def add(request):
     return render(request, 'todo_app/add.html', {})
 
 def save(request):
-    todo = Todo(todo=request.POST['todo_text'], date_cre=timezone.now(), author=request.user) #zmenit aby to vkladalo prihlaseneho
+    todo_text = request.POST['todo_text']
+    todo = Todo(todo=todo_text, date_cre=timezone.now(), author=request.user)
     todo.save()
     
-    latest_list = Todo.objects.order_by('-date_cre')[:10]
+    user = request.user
+    action = 'pridanie noveho Todo'
     
-    context = { 'latest_list': latest_list}
-    return render(request, 'todo_app/index.html', context) 
+    al = ActivityLog(action=action, date=timezone.now(), author=user)
+    al.save()
+    
+    return HttpResponseRedirect(reverse('todo:index', args=()))

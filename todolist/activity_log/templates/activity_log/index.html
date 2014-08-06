@@ -1,0 +1,18 @@
+{% if latest_list %}
+    <table class="aLog">
+        <tr>
+            <td>Akcia</td>
+            <td>Autor</td>
+            <td>Datum</td>
+        </tr>
+    {% for aLog in latest_list %}
+        <tr>
+            <td>{{ aLog.action }}</td>
+            <td>{{ aLog.get_author_name }}</td>
+            <td>{{ aLog.date }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>Zatial neboli ziadne akcie :)</p>
+{% endif %}
