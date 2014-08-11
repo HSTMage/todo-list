@@ -21,14 +21,14 @@ body {
 
 .login_form {
     width: 500px;
-    height: 170px;
+    height: 230px;
     margin: 150px auto 0px auto;
     padding: 10px;
     
     border: 2px solid black;
 }
 .login_form.register {
-    height: 200px;
+    height: 270px;
 }
 .login_row {
     height: 30px;
@@ -40,12 +40,13 @@ body {
     width: 150px;
     
     padding-top: 6px;
-    font-size: 1.6em;
 }
 .login_form input {
     float: right;
     display: block;
     width: 300px;
-    
-    font-size: 1.6em;
+}
+.err {
+    color: red;
+    text-align: center;
 }

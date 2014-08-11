@@ -1,5 +1,6 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, loader
+from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
@@ -9,7 +10,9 @@ from django.contrib.auth.models import User
 from django.utils import timezone
     
 def index(request):
-    actionLog_div = render(request, 'activity_log/index.html', {}) 
+
+    latest_list_activity = ActivityLog.objects.order_by('-date')[:10]
+    actionLog_div = render_to_string('activity_log/index.html', {'latest_list': latest_list_activity}) 
     
     latest_list = Todo.objects.order_by('-date_cre')[:10]
     context = { 'latest_list': latest_list, actionLog_div: actionLog_div}

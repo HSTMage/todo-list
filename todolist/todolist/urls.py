@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^doRegister/$', views.doRegister, name='doRegister'),
     
     url(r'^todo/', include('todo_app.urls', namespace="todo")),
+    url(r'^activity/', include('activity_log.urls', namespace="activity")),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
 

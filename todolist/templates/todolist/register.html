@@ -23,6 +23,10 @@
                 <input type="password" name="reg_pass2" id="reg_pass2" />
             </div>
             
+            <div class="login_row err"> 
+                {% if err_msg %}<p><strong>{{ err_msg }}</strong></p>{% endif %}
+            </div>
+            
             <div class="login_row">
                 <input type="submit" name="login_send" id="login_send" value="Send" />
             </div>

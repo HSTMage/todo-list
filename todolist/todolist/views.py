@@ -27,14 +27,11 @@ def doLogin(request):
         
         al = ActivityLog(action='uspesne prihlasenie',date=timezone.now(), author=user)
         al.save()
+        return HttpResponseRedirect(reverse('index', args=()))  
     else:
-        err_message = 'nespravne prihlasenie'
-        #action = 'NEuspesne prihlasenie, username=%s' % (username)
-        #action = action.strip()
-        #al = ActivityLog(action=action,date=timezone.now(), None)
-        #al.save()
-        
-    return HttpResponseRedirect(reverse('index', args=()))  
+        err_message = 'nespravne prihlasenie' 
+        return render(request, 'todolist/index.html', {'err_msg': err_message})       
+    
     
 def doLogout(request):
     logout(request)
@@ -50,19 +47,23 @@ def doRegister(request):
     password2 = request.POST['reg_pass2']
     
     if User.objects.filter(username=username).exists():
-        is_ok1 = True
-    else:
         is_ok1 = False
+    else:
+        is_ok1 = True
         
     if password == password2:
         is_ok2 = True
-    else: 
-        is_ok2 = False
-        
-    if is_ok1 & is_ok2:
-        new_user = User.objects.create_user(username, '', password)
-        new_user.save()
     else:
+        is_ok2 = False
+    
+    if is_ok1 and is_ok2:
+        new_user = User.objects.create_user(username, '')
+        new_user.set_password(password)
+        new_user.save()
+        
+        return HttpResponseRedirect(reverse('index', args=()))
+    else:             
         err_msg = 'Pouzivatelske meno sa pouziva alebo boli zle zadane hesla'
-
-    return HttpResponseRedirect(reverse('index', args=())) 
+        
+        return render(request, 'todolist/register.html', {'err_msg': err_msg})
+             

@@ -1,4 +1,4 @@
-{% extends "todolist/base.html" %}
+c{% extends "todolist/base.html" %}
        
 {% block title %}Login{% endblock %}
        
@@ -15,6 +15,10 @@
               <div class="login_row">
                   <label for="login_pass">Password:</label>
                   <input type="password" name="login_pass" id="login_pass" />
+              </div>
+              
+              <div class="login_row err"> 
+                  {% if err_msg %}<p><strong>{{ err_msg }}</strong></p>{% endif %}
               </div>
               
               <div class="login_row">
