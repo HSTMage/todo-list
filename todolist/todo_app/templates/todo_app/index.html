@@ -20,8 +20,22 @@
             <a href="{% url 'todo:add' %}">Pridat</a>
         </div>
         
-        <div class="left">
-            {{ actionLog_div }}
+        <div class="left middle">
+            {% if most_tags_list %}
+                <ul class="tags_list">
+                {% for tag in most_tags_list %}
+                    <li><span class="tag_name">{{ tag.tag }}</span> | {{ tag.get_usage }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Zatial neboli vytvorene ziadne Tagy :)</p>
+            {% endif %}
+            
+            <!--<a href="{% url 'todo:addTag' %}">Pridat</a>--> 
+        </div>
+        
+        <div class="right">
+            {{ actionLog_div }} 
         </div>
     </div>
     

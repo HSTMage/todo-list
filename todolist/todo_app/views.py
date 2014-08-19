@@ -10,12 +10,15 @@ from django.contrib.auth.models import User
 from django.utils import timezone
     
 def index(request):
-
-    latest_list_activity = ActivityLog.objects.order_by('-date')[:10]
-    actionLog_div = render_to_string('activity_log/index.html', {'latest_list': latest_list_activity}) 
     
-    latest_list = Todo.objects.order_by('-date_cre')[:10]
-    context = { 'latest_list': latest_list, actionLog_div: actionLog_div}
+    latest_list_activity = ActivityLog.objects.order_by('-date')[:10]
+    actionLog_div  = render_to_string('activity_log/index.html', {'latest_list': latest_list_activity}) 
+    latest_list    = Todo.objects.order_by('-date_cre')[:10]
+    
+    most_tags_list = Tags.objects.all()
+    most_tags_list = sorted(most_tags_list, key=lambda x: x.get_usage(), reverse=True)
+    
+    context = { 'latest_list': latest_list, 'most_tags_list': most_tags_list, 'actionLog_div': actionLog_div}
     return render(request, 'todo_app/index.html', context)   
         
 def detail(request, todo_id):
@@ -37,3 +40,6 @@ def save(request):
     al.save()
     
     return HttpResponseRedirect(reverse('todo:index', args=()))
+    
+def addTag(request):
+    return render(request, 'todo_app/add.html', {})

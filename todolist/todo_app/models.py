@@ -6,6 +6,11 @@ class Tags(models.Model):
     
     def __str__(self):
         return self.tag
+        
+    def get_usage(self):
+        return self.todo_set.all().count()
+        
+    get_usage.short_description = 'Vyuzitie'
 
 class Todo(models.Model):
     todo = models.CharField(max_length=200)
