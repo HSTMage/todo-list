@@ -12,4 +12,8 @@ class TodoAdmin(admin.ModelAdmin):
     search_fields = ['todo']
     
 admin.site.register(Todo, TodoAdmin)
-admin.site.register(Tags)
+
+class TagsAdmin(admin.ModelAdmin):
+    list_display = ('tag', 'get_usage')
+
+admin.site.register(Tags, TagsAdmin)
